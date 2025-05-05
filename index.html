@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Secure Password Vault</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Secure Password Vault</h1>
+        
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="generator">Password Generator</button>
+            <button class="tab-btn" data-tab="vault">Password Vault</button>
+        </div>
+        
+        <div id="generator" class="tab-content active">
+            <div class="form-group">
+                <label for="length">Password Length:</label>
+                <input type="number" id="length" min="8" max="64" value="16">
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="uppercase" checked> Uppercase Letters (A-Z)
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="lowercase" checked> Lowercase Letters (a-z)
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="numbers" checked> Numbers (0-9)
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="symbols" checked> Symbols (!@#$%^&*)
+                </label>
+            </div>
+            
+            <button id="generate-btn" class="btn">Generate Password</button>
+            
+            <div class="result">
+                <input type="text" id="password" readonly>
+                <button id="copy-btn" class="btn">Copy</button>
+                <button id="check-btn" class="btn">Check Breach
+                    <div style="font-size:18px; color: red; font-weight: bolder;">🔻Low-Priority
+                        <div>[Offline]</div>
+                    </div>
+                </button>
+                <button id="save-btn" class="btn">Save to Vault</button>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn special-btn">✨ Deep-Check
+                        <div style="font-size:18px; color: red;">🔺High-Priority
+                            <div>[Online]</div>
+                        </div>
+                    </button>
+                  </div>
+            </div>
+
+            <div id="strength-meter" class="strength-meter hidden">
+                <p id="strength-text">Strength:</p>
+            </div>
+
+            <div id="breach-result" class="hidden">
+                <p id="breach-message"></p>
+            </div>
+        </div>
+        
+        <div id="vault" class="tab-content">
+            <div class="vault-controls">
+                <input type="password" id="master-password" placeholder="Enter Master Password" autocomplete="current-password">
+                <button id="unlock-btn" class="btn">Unlock Vault</button>
+                <button id="lock-btn" class="btn hidden">Lock Vault</button>
+            </div>
+            
+            <div id="vault-content" class="hidden">
+                <div class="add-password">
+                    <input type="text" id="site-name" placeholder="Website/Service">
+                    <input type="text" id="username" placeholder="Username/Email" autocomplete="username">
+                    <input type="password" id="vault-password" placeholder="Password" autocomplete="new-password">
+                    <button id="add-password-btn" class="btn">Add Password</button>
+                </div>
+                
+                <table id="password-table">
+                    <thead>
+                        <tr>
+                            <th>Website/Service</th>
+                            <th>Username/Email</th>
+                            <th>Password</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="password-list">
+                        <!-- Passwords will be added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script src="common-passwords.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
